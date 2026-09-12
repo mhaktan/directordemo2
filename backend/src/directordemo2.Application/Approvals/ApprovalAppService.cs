@@ -301,7 +301,9 @@ namespace directordemo2.Approvals
                 var rootNs = GetType().Namespace?.Split('.')[0] ?? "directordemo2";
                 var pluralNs = $"{rootNs}.{entityType}s";
                 var ifaceTypeName = $"{pluralNs}.I{entityType}AppService, {rootNs}.Application";
-                var iface = System.Type.GetType(ifaceTypeName);
+                // Once ad tahmini, tutmazsa yuklu assembly'lerde ara. Tek bir namespace/
+                // cogul-ek tahminine bagli kalmak tum onay akisini sessizce durduruyordu.
+                var iface = System.Type.GetType(ifaceTypeName) ?? FindTypeByName($"I{entityType}AppService", true);
                 if (iface == null)
                 {
                     Logger.Error($"No app service interface for entity '{entityType}' (looked for {ifaceTypeName})");
@@ -321,7 +323,8 @@ namespace directordemo2.Approvals
                 // Eski projeler icin entity bazli ad da yedek olarak deneniyor.
                 var changeStatusInputType =
                     System.Type.GetType($"{rootNs}.StateMachine.Dto.ChangeStatusInput, {rootNs}.Application")
-                    ?? System.Type.GetType($"{pluralNs}.Dto.ChangeStatusInput, {rootNs}.Application");
+                    ?? System.Type.GetType($"{pluralNs}.Dto.ChangeStatusInput, {rootNs}.Application")
+                    ?? FindTypeByName("ChangeStatusInput", false);
                 if (changeStatusInputType == null)
                 {
                     Logger.Error($"ChangeStatusInput type missing for '{entityType}'");
@@ -354,7 +357,33 @@ namespace directordemo2.Approvals
         private System.Type ResolveEntityClrType(string entityType)
         {
             var rootNs = GetType().Namespace?.Split('.')[0] ?? "directordemo2";
-            return System.Type.GetType($"{rootNs}.Entities.{entityType}, {rootNs}.Core");
+            return System.Type.GetType($"{rootNs}.Entities.{entityType}, {rootNs}.Core")
+                ?? FindTypeByName(entityType, false);
+        }
+
+        // Yuklu assembly'lerde ada gore tip arar (namespace tahmini tutmadiginda yedek).
+        // Sonuc onbellege alinir; GetTypes() her cagride pahalidir.
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, System.Type> _typeCache =
+            new System.Collections.Concurrent.ConcurrentDictionary<string, System.Type>();
+
+        private static System.Type FindTypeByName(string typeName, bool interfaceOnly)
+        {
+            return _typeCache.GetOrAdd($"{typeName}|{interfaceOnly}", _ =>
+            {
+                foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    if (asm.IsDynamic) continue;
+                    System.Type[] types;
+                    try { types = asm.GetTypes(); }
+                    catch (ReflectionTypeLoadException ex) { types = ex.Types.Where(t => t != null).ToArray(); }
+                    catch { continue; }
+
+                    var hit = types.FirstOrDefault(t =>
+                        t.Name == typeName && (!interfaceOnly || t.IsInterface));
+                    if (hit != null) return hit;
+                }
+                return null;
+            });
         }
 
         public async Task<List<ApprovalRecordDto>> GetApprovalHistoryAsync(string entityType, string entityId)
