@@ -1,0 +1,287 @@
+{
+  "id": "report-purchaseRequest-1789240897694",
+  "name": "Talep Onay Formu",
+  "orientation": "portrait",
+  "pageSize": "a4",
+  "elements": [
+    {
+      "id": "pdf-mtyru0f1-0",
+      "type": "header",
+      "x": 20,
+      "y": 25,
+      "width": 170,
+      "height": 10,
+      "props": {
+        "text": "Talep Onay Formu",
+        "fontSize": 16,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-1",
+      "type": "divider",
+      "x": 20,
+      "y": 39,
+      "width": 170,
+      "height": 2,
+      "props": {
+        "lineColor": "#999999"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-2",
+      "type": "textbox",
+      "x": 20,
+      "y": 45,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Talep Bilgileri",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-3",
+      "type": "textbox",
+      "x": 20,
+      "y": 56,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Request Number: {{data.requestNumber}}",
+        "binding": "data.requestNumber",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-4",
+      "type": "textbox",
+      "x": 20,
+      "y": 66,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Justification: {{data.justification}}",
+        "binding": "data.justification",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-5",
+      "type": "textbox",
+      "x": 20,
+      "y": 76,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Total Amount: {{data.totalAmount}}",
+        "binding": "data.totalAmount",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-6",
+      "type": "textbox",
+      "x": 20,
+      "y": 86,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Needed Date: {{data.neededDate}}",
+        "binding": "data.neededDate",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-7",
+      "type": "textbox",
+      "x": 20,
+      "y": 96,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Status: {{data.status}}",
+        "binding": "data.status",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-8",
+      "type": "textbox",
+      "x": 20,
+      "y": 106,
+      "width": 170,
+      "height": 6,
+      "props": {
+        "text": "Rejection Reason: {{data.rejectionReason}}",
+        "binding": "data.rejectionReason",
+        "fontSize": 10
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-9",
+      "type": "textbox",
+      "x": 20,
+      "y": 118,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Talep Kalemleri",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-10",
+      "type": "table",
+      "x": 20,
+      "y": 129,
+      "width": 170,
+      "height": 70,
+      "props": {
+        "binding": "data.purchaseRequestItems",
+        "columns": [
+          {
+            "key": "productName",
+            "label": "Product Name",
+            "width": 42
+          },
+          {
+            "key": "quantity",
+            "label": "Quantity",
+            "width": 42
+          },
+          {
+            "key": "unitPrice",
+            "label": "Unit Price",
+            "width": 42
+          },
+          {
+            "key": "lineTotal",
+            "label": "Line Total",
+            "width": 42
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-11",
+      "type": "textbox",
+      "x": 20,
+      "y": 203,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Teklifler",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-12",
+      "type": "table",
+      "x": 20,
+      "y": 214,
+      "width": 170,
+      "height": 70,
+      "props": {
+        "binding": "data.quotations",
+        "columns": [
+          {
+            "key": "quotationDate",
+            "label": "Quotation Date",
+            "width": 42
+          },
+          {
+            "key": "validUntil",
+            "label": "Valid Until",
+            "width": 42
+          },
+          {
+            "key": "amount",
+            "label": "Amount",
+            "width": 42
+          },
+          {
+            "key": "isSelected",
+            "label": "Is Selected",
+            "width": 42
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-13",
+      "type": "textbox",
+      "x": 20,
+      "y": 288,
+      "width": 170,
+      "height": 7,
+      "props": {
+        "text": "Onay Geçmişi",
+        "fontSize": 12,
+        "fontWeight": "bold"
+      }
+    },
+    {
+      "id": "pdf-mtyru0f2-14",
+      "type": "table",
+      "x": 20,
+      "y": 299,
+      "width": 170,
+      "height": 56,
+      "props": {
+        "binding": "data.approvalHistory",
+        "columns": [
+          {
+            "key": "stepName",
+            "label": "Adım",
+            "width": 45
+          },
+          {
+            "key": "action",
+            "label": "Aksiyon",
+            "width": 30
+          },
+          {
+            "key": "userName",
+            "label": "Kullanıcı",
+            "width": 45
+          },
+          {
+            "key": "actionDate",
+            "label": "Tarih",
+            "width": 50
+          }
+        ],
+        "headerBgColor": "#f0f0f0",
+        "borderColor": "#cccccc",
+        "rowHeight": 7
+      }
+    }
+  ],
+  "apiBinding": {
+    "method": "GET",
+    "url": "api/services/app/PurchaseRequest/GetReportData?id={id}",
+    "params": [
+      {
+        "name": "id"
+      }
+    ]
+  },
+  "headerConfig": {
+    "enabled": true,
+    "text": "Talep Onay Formu",
+    "fontSize": 9
+  },
+  "pageNumberConfig": {
+    "enabled": true
+  }
+}

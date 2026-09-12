@@ -1,0 +1,364 @@
+[
+  {
+    "id": "flow-PurchaseRequest-approval",
+    "name": "PurchaseRequest Approval Flow",
+    "edges": [
+      {
+        "id": "gen_1789239108279_3",
+        "sourceNodeId": "gen_1789239108279_1",
+        "targetNodeId": "gen_1789239108279_2"
+      },
+      {
+        "id": "gen_1789239108279_5",
+        "branch": "true",
+        "sourceNodeId": "gen_1789239108279_2",
+        "targetNodeId": "gen_1789239108279_4"
+      },
+      {
+        "id": "gen_1789239108279_7",
+        "sourceNodeId": "gen_1789239108279_4",
+        "targetNodeId": "gen_1789239108279_6"
+      },
+      {
+        "id": "gen_1789239108279_10",
+        "sourceNodeId": "gen_1789239108279_8",
+        "targetNodeId": "gen_1789239108279_9"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "gen_1789239108279_1",
+        "type": "trigger",
+        "label": "On PurchaseRequest Submit",
+        "trigger": {
+          "type": "on-field-change",
+          "fieldName": "status",
+          "resourceName": "PurchaseRequest"
+        },
+        "position": {
+          "x": 300,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1789239108279_2",
+        "type": "condition",
+        "label": "Status = PendingManagerApproval?",
+        "position": {
+          "x": 300,
+          "y": 160
+        },
+        "condition": {
+          "logic": "and",
+          "rules": [
+            {
+              "field": "triggerData.status",
+              "value": "1",
+              "operator": "equals"
+            }
+          ]
+        }
+      },
+      {
+        "id": "gen_1789239108279_4",
+        "type": "approval",
+        "label": "PurchaseRequest Approval",
+        "approval": {
+          "steps": [
+            {
+              "name": "Birim Müdürü Onayı",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                },
+                {
+                  "type": "revise",
+                  "label": "Reddet",
+                  "requiredFields": [
+                    "rejectionReason"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "DepartmentManager"
+            },
+            {
+              "name": "Finans Onayı",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                },
+                {
+                  "type": "revise",
+                  "label": "Reddet",
+                  "requiredFields": [
+                    "rejectionReason"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "FinanceApprover"
+            }
+          ],
+          "onCompleteEvent": "PurchaseRequest-approval-completed",
+          "trackRevisionHistory": true
+        },
+        "position": {
+          "x": 300,
+          "y": 280
+        }
+      },
+      {
+        "id": "gen_1789239108279_6",
+        "type": "action",
+        "label": "Send Approval Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "to": "{{assigneeEmail}}",
+            "body": "<p>Sayın Onaycı,</p><p><strong>{{triggerData.requestNumber}}</strong> numaralı satın alma talebi onayınızı beklemektedir.</p>",
+            "subject": "{{triggerData.requestNumber}} — Onayınızı Bekliyor",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 300,
+          "y": 400
+        }
+      },
+      {
+        "id": "gen_1789239108279_8",
+        "type": "trigger",
+        "label": "On PurchaseRequest Approved",
+        "trigger": {
+          "type": "manual",
+          "resourceName": "PurchaseRequest"
+        },
+        "position": {
+          "x": 700,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1789239108279_9",
+        "type": "action",
+        "label": "Send Completion Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "cc": "{{departmentEmails}}",
+            "to": "{{creatorEmail}}",
+            "body": "<p>{{triggerData.formNo}} numarali formun onay sureci tamamlanmistir.</p>",
+            "subject": "{{triggerData.formNo}} — Tum onaylar tamamlandi",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 700,
+          "y": 160
+        }
+      }
+    ],
+    "enabled": true,
+    "createdAt": "2026-09-12T18:51:48.278Z",
+    "updatedAt": "2026-09-12T18:51:48.278Z",
+    "variables": [
+      {
+        "name": "assigneeEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "creatorEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "departmentEmails",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "formLink",
+        "type": "string",
+        "defaultValue": ""
+      }
+    ],
+    "description": "Auto-generated approval flow for PurchaseRequest. Customize email templates and add conditions as needed.",
+    "resourceName": "PurchaseRequest"
+  },
+  {
+    "id": "flow-PurchaseOrder-approval",
+    "name": "PurchaseOrder Approval Flow",
+    "edges": [
+      {
+        "id": "gen_1789239108279_13",
+        "sourceNodeId": "gen_1789239108279_11",
+        "targetNodeId": "gen_1789239108279_12"
+      },
+      {
+        "id": "gen_1789239108279_15",
+        "branch": "true",
+        "sourceNodeId": "gen_1789239108279_12",
+        "targetNodeId": "gen_1789239108279_14"
+      },
+      {
+        "id": "gen_1789239108279_17",
+        "sourceNodeId": "gen_1789239108279_14",
+        "targetNodeId": "gen_1789239108279_16"
+      },
+      {
+        "id": "gen_1789239108279_20",
+        "sourceNodeId": "gen_1789239108279_18",
+        "targetNodeId": "gen_1789239108279_19"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "gen_1789239108279_11",
+        "type": "trigger",
+        "label": "On PurchaseOrder Submit",
+        "trigger": {
+          "type": "on-field-change",
+          "fieldName": "status",
+          "resourceName": "PurchaseOrder"
+        },
+        "position": {
+          "x": 300,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1789239108279_12",
+        "type": "condition",
+        "label": "Status = PendingApproval?",
+        "position": {
+          "x": 300,
+          "y": 160
+        },
+        "condition": {
+          "logic": "and",
+          "rules": [
+            {
+              "field": "triggerData.status",
+              "value": "1",
+              "operator": "equals"
+            }
+          ]
+        }
+      },
+      {
+        "id": "gen_1789239108279_14",
+        "type": "approval",
+        "label": "PurchaseOrder Approval",
+        "approval": {
+          "steps": [
+            {
+              "name": "Satın Alma Onayı",
+              "actions": [
+                {
+                  "type": "approve",
+                  "label": "Onayla"
+                },
+                {
+                  "type": "revise",
+                  "label": "Revize Et",
+                  "requiredFields": [
+                    "notes"
+                  ]
+                }
+              ],
+              "assigneeType": "role",
+              "assigneeValue": "PurchasingOfficer"
+            }
+          ],
+          "onCompleteEvent": "PurchaseOrder-approval-completed",
+          "trackRevisionHistory": true
+        },
+        "position": {
+          "x": 300,
+          "y": 280
+        }
+      },
+      {
+        "id": "gen_1789239108279_16",
+        "type": "action",
+        "label": "Send Approval Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "to": "{{assigneeEmail}}",
+            "body": "<p>Sayın Onaycı,</p><p><strong>{{triggerData.orderNumber}}</strong> numaralı sipariş onayınızı beklemektedir.</p>",
+            "subject": "{{triggerData.orderNumber}} — Sipariş Onayınızı Bekliyor",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 300,
+          "y": 400
+        }
+      },
+      {
+        "id": "gen_1789239108279_18",
+        "type": "trigger",
+        "label": "On PurchaseOrder Approved",
+        "trigger": {
+          "type": "manual",
+          "resourceName": "PurchaseOrder"
+        },
+        "position": {
+          "x": 700,
+          "y": 50
+        }
+      },
+      {
+        "id": "gen_1789239108279_19",
+        "type": "action",
+        "label": "Send Completion Email",
+        "action": {
+          "type": "send-email",
+          "config": {
+            "cc": "{{departmentEmails}}",
+            "to": "{{creatorEmail}}",
+            "body": "<p>{{triggerData.formNo}} numarali formun onay sureci tamamlanmistir.</p>",
+            "subject": "{{triggerData.formNo}} — Tum onaylar tamamlandi",
+            "contentType": "html"
+          }
+        },
+        "position": {
+          "x": 700,
+          "y": 160
+        }
+      }
+    ],
+    "enabled": true,
+    "createdAt": "2026-09-12T18:51:48.279Z",
+    "updatedAt": "2026-09-12T18:51:48.279Z",
+    "variables": [
+      {
+        "name": "assigneeEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "creatorEmail",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "departmentEmails",
+        "type": "string",
+        "defaultValue": ""
+      },
+      {
+        "name": "formLink",
+        "type": "string",
+        "defaultValue": ""
+      }
+    ],
+    "description": "Auto-generated approval flow for PurchaseOrder. Customize email templates and add conditions as needed.",
+    "resourceName": "PurchaseOrder"
+  }
+]
