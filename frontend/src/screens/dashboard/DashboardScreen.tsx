@@ -236,7 +236,7 @@ export const DashboardScreen: React.FC = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 16 }}>
         <div style={{ gridColumn: 'span 12' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-            <div style={{ gridColumn: 'span 3' }}>
+            <div style={{ gridColumn: 'span 1' }}>
               {mytasks_0Loading ? (
                 <UiCard bodyStyle={{ padding: 20 }}>
                   <div style={{ height: 12, width: '40%', background: '#e0e0e0', borderRadius: 4, marginBottom: 12, animation: 'pulse 1.5s ease-in-out infinite' }} />
@@ -246,12 +246,12 @@ export const DashboardScreen: React.FC = () => {
               ) : (
               <UiCard bodyStyle={{ padding: 20 }}>
                 <div style={{ fontSize: 12, color: '#888', marginBottom: 4 }}>Onayımı Bekleyen Talepler / Siparişler</div>
-                <div style={{ fontSize: 28, fontWeight: 700, color: '#1976d2' }}>{Array.isArray(mytasks_0Data?.['result']) ? (mytasks_0Data?.['result'] as unknown[]).length : ((mytasks_0Data?.['result'] as string | number) ?? '—')}</div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: '#1976d2' }}>{Array.isArray((Array.isArray(mytasks_0Data) ? mytasks_0Data as unknown[] : mytasks_0Data?.['result'])) ? ((Array.isArray(mytasks_0Data) ? mytasks_0Data as unknown[] : mytasks_0Data?.['result']) as unknown[]).length : (((Array.isArray(mytasks_0Data) ? mytasks_0Data as unknown[] : mytasks_0Data?.['result']) as string | number) ?? '—')}</div>
               </UiCard>
               )}
 
             </div>
-            <div style={{ gridColumn: 'span 3' }}>
+            <div style={{ gridColumn: 'span 1' }}>
               {count_purchaseRequest_1Loading ? (
                 <UiCard bodyStyle={{ padding: 20 }}>
                   <div style={{ height: 12, width: '40%', background: '#e0e0e0', borderRadius: 4, marginBottom: 12, animation: 'pulse 1.5s ease-in-out infinite' }} />
@@ -266,7 +266,7 @@ export const DashboardScreen: React.FC = () => {
               )}
 
             </div>
-            <div style={{ gridColumn: 'span 3' }}>
+            <div style={{ gridColumn: 'span 1' }}>
               {count_purchaseOrder_2Loading ? (
                 <UiCard bodyStyle={{ padding: 20 }}>
                   <div style={{ height: 12, width: '40%', background: '#e0e0e0', borderRadius: 4, marginBottom: 12, animation: 'pulse 1.5s ease-in-out infinite' }} />
@@ -296,7 +296,7 @@ export const DashboardScreen: React.FC = () => {
             <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
                     <Pie data={breakdown_purchaseRequest_3Data} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
-                      <Cell fill="#9d36f2" />
+                      <Cell fill="#1976d2" />
                       <Cell fill="#ff9800" />
                       <Cell fill="#4caf50" />
                       <Cell fill="#e91e63" />
@@ -324,7 +324,7 @@ export const DashboardScreen: React.FC = () => {
                     <XAxis dataKey="label" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="count" fill="#9d36f2" />
+                    <Bar dataKey="count" fill="#1976d2" />
                   </BarChart>
                 </ResponsiveContainer>
           </UiCard>
@@ -333,7 +333,7 @@ export const DashboardScreen: React.FC = () => {
         <div style={{ gridColumn: 'span 12' }}>
           <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 12px' }}>İhtiyaç Tarihi Geçmiş — Onaylanmamış Talepler</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: 16 }}>
-            <div style={{ gridColumn: 'span 12' }}>
+            <div style={{ gridColumn: 'span 1' }}>
               <div style={{ background: '#fff', borderRadius: 8, overflow: 'hidden', border: '1px solid #e8e8e8' }}>
                 {list_purchaseRequest_5_tableLoading ? (
                   <div style={{ padding: 20, textAlign: 'center', color: '#999' }}>Loading...</div>
@@ -354,7 +354,7 @@ export const DashboardScreen: React.FC = () => {
         <div style={{ gridColumn: 'span 12' }}>
           <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 12px' }}>Tahmini Teslimat Tarihi Geçmiş Siparişler</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: 16 }}>
-            <div style={{ gridColumn: 'span 12' }}>
+            <div style={{ gridColumn: 'span 1' }}>
               <div style={{ background: '#fff', borderRadius: 8, overflow: 'hidden', border: '1px solid #e8e8e8' }}>
                 {list_purchaseOrder_6_tableLoading ? (
                   <div style={{ padding: 20, textAlign: 'center', color: '#999' }}>Loading...</div>

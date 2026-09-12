@@ -42,6 +42,15 @@ interface PendingTask {
   creatorName?: string;
 }
 
+/** ABP hata zarfindan okunabilir mesaji cikarir. */
+const parseApiError = (e: unknown): string => {
+  const raw = e instanceof Error ? e.message : String(e);
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed?.error?.message || parsed?.error?.details || raw;
+  } catch { return raw; }
+};
+
 const timeAgo = (dateStr: string) => {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
@@ -57,6 +66,7 @@ export default function TaskInboxScreen() {
   const [filter, setFilter] = React.useState('');
   const [comment, setComment] = React.useState('');
   const [modal, setModal] = React.useState<{ task: PendingTask; action: string } | null>(null);
+  const [error, setError] = React.useState('');
 
   const { data: tasks = [], isLoading } = useQuery<PendingTask[]>({
     queryKey: ['pending-tasks'],
@@ -83,7 +93,9 @@ export default function TaskInboxScreen() {
       if (!res.ok) throw new Error(await res.text());
       return res.json();
     },
-    onSuccess: () => { qc.invalidateQueries({ queryKey: ['pending-tasks'] }); setModal(null); setComment(''); },
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['pending-tasks'] }); setModal(null); setComment(''); setError(''); },
+    // Onay islemi sessizce basarisiz olmamali: durum degismezse kullanici nedenini gormeli.
+    onError: (e: unknown) => setError(parseApiError(e)),
   });
 
   const filtered = tasks.filter(t => {
@@ -116,6 +128,12 @@ export default function TaskInboxScreen() {
           style={{ padding: '8px 12px', border: '1px solid #ddd', borderRadius: 6, fontSize: 13, width: 250 }}
         />
       </div>
+
+      {error && (
+        <div style={{ padding: '10px 14px', background: '#ffebee', border: '1px solid #ef9a9a', borderRadius: 6, color: '#c62828', fontSize: 13, marginBottom: 12 }}>
+          {error}
+        </div>
+      )}
 
       {isLoading && <p style={{ color: '#888' }}>Loading...</p>}
 

@@ -294,17 +294,26 @@ namespace directordemo2.Approvals
         // duplicate state-machine logic in two places.
         private async Task TryChangeEntityStatusAsync(string entityType, string entityIdStr, string action, string comment)
         {
-            if (!long.TryParse(entityIdStr, out var entityId)) return;
+            if (!long.TryParse(entityIdStr, out var entityId))
+                throw new UserFriendlyException($"Approval record has an unusable entity id '{entityIdStr}'.");
             try
             {
                 var rootNs = GetType().Namespace?.Split('.')[0] ?? "directordemo2";
                 var pluralNs = $"{rootNs}.{entityType}s";
                 var ifaceTypeName = $"{pluralNs}.I{entityType}AppService, {rootNs}.Application";
                 var iface = System.Type.GetType(ifaceTypeName);
-                if (iface == null) { Logger.Warn($"No app service interface for entity '{entityType}' (looked for {ifaceTypeName})"); return; }
+                if (iface == null)
+                {
+                    Logger.Error($"No app service interface for entity '{entityType}' (looked for {ifaceTypeName})");
+                    throw new UserFriendlyException($"Status could not be updated: app service for '{entityType}' was not found.");
+                }
 
                 var method = iface.GetMethod("ChangeStatusAsync");
-                if (method == null) { Logger.Warn($"{iface.Name} has no ChangeStatusAsync method; skipping status update."); return; }
+                if (method == null)
+                {
+                    Logger.Error($"{iface.Name} has no ChangeStatusAsync method.");
+                    throw new UserFriendlyException($"Status could not be updated: '{entityType}' has no state machine.");
+                }
 
                 // ChangeStatusInput PAYLASILAN namespace'te ({ns}.StateMachine.Dto) uretiliyor.
                 // Onceden entity bazli namespace'te aranıyordu; tip bulunamayinca bu metod
@@ -313,7 +322,11 @@ namespace directordemo2.Approvals
                 var changeStatusInputType =
                     System.Type.GetType($"{rootNs}.StateMachine.Dto.ChangeStatusInput, {rootNs}.Application")
                     ?? System.Type.GetType($"{pluralNs}.Dto.ChangeStatusInput, {rootNs}.Application");
-                if (changeStatusInputType == null) { Logger.Warn($"ChangeStatusInput type missing for '{entityType}'"); return; }
+                if (changeStatusInputType == null)
+                {
+                    Logger.Error($"ChangeStatusInput type missing for '{entityType}'");
+                    throw new UserFriendlyException("Status could not be updated: ChangeStatusInput type was not found.");
+                }
 
                 var changeInput = Activator.CreateInstance(changeStatusInputType);
                 changeStatusInputType.GetProperty("Action")?.SetValue(changeInput, action);

@@ -1,11 +1,11 @@
 {
-  "id": "report-purchaseOrder-1789240897694",
+  "id": "report-purchaseOrder-1789242292189",
   "name": "Sipariş Formu",
   "orientation": "portrait",
   "pageSize": "a4",
   "elements": [
     {
-      "id": "pdf-mtyru0f2-15",
+      "id": "pdf-mtysnwf1-15",
       "type": "header",
       "x": 20,
       "y": 25,
@@ -18,7 +18,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-16",
+      "id": "pdf-mtysnwf1-16",
       "type": "divider",
       "x": 20,
       "y": 39,
@@ -29,7 +29,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-17",
+      "id": "pdf-mtysnwf1-17",
       "type": "textbox",
       "x": 20,
       "y": 45,
@@ -42,7 +42,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-18",
+      "id": "pdf-mtysnwf1-18",
       "type": "textbox",
       "x": 20,
       "y": 56,
@@ -55,7 +55,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-19",
+      "id": "pdf-mtysnwf1-19",
       "type": "textbox",
       "x": 20,
       "y": 66,
@@ -68,7 +68,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-20",
+      "id": "pdf-mtysnwf1-20",
       "type": "textbox",
       "x": 20,
       "y": 76,
@@ -81,7 +81,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-21",
+      "id": "pdf-mtysnwf1-21",
       "type": "textbox",
       "x": 20,
       "y": 86,
@@ -94,7 +94,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-22",
+      "id": "pdf-mtysnwf1-22",
       "type": "textbox",
       "x": 20,
       "y": 96,
@@ -107,7 +107,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-23",
+      "id": "pdf-mtysnwf1-23",
       "type": "textbox",
       "x": 20,
       "y": 106,
@@ -120,7 +120,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-24",
+      "id": "pdf-mtysnwf1-24",
       "type": "textbox",
       "x": 20,
       "y": 116,
@@ -133,7 +133,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-25",
+      "id": "pdf-mtysnwf1-25",
       "type": "textbox",
       "x": 20,
       "y": 128,
@@ -146,7 +146,7 @@
       }
     },
     {
-      "id": "pdf-mtyru0f2-26",
+      "id": "pdf-mtysnwf1-26",
       "type": "table",
       "x": 20,
       "y": 139,
