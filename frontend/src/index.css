@@ -2,19 +2,19 @@
 
 :root {
   /* Takeoff UI primary palette — tk-button reads these via var() at runtime */
-  --primary-500: #1976d2;
-  --primary-400: #1976d2;
-  --primary-300: #1976d2cc;
-  --primary-200: #1976d299;
-  --primary-100: #1976d233;
-  --primary-50: #1976d21a;
-  --primary-base: #1976d2;
-  --primary-sub-base: #1976d2cc;
-  --primary-dark: #1976d2dd;
-  --primary-darkest: #1976d2bb;
-  --primary-light: #1976d233;
-  --primary-lightest: #1976d21a;
-  --primary-focus: #1976d244;
+  --primary-500: #c943f9;
+  --primary-400: #c943f9;
+  --primary-300: #c943f9cc;
+  --primary-200: #c943f999;
+  --primary-100: #c943f933;
+  --primary-50: #c943f91a;
+  --primary-base: #c943f9;
+  --primary-sub-base: #c943f9cc;
+  --primary-dark: #c943f9dd;
+  --primary-darkest: #c943f9bb;
+  --primary-light: #c943f933;
+  --primary-lightest: #c943f91a;
+  --primary-focus: #c943f944;
   --danger-base: #d32f2f;
   --danger-500: #d32f2f;
 }

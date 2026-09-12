@@ -296,7 +296,7 @@ export const DashboardScreen: React.FC = () => {
             <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
                     <Pie data={breakdown_purchaseRequest_3Data} dataKey="count" nameKey="label" cx="50%" cy="50%" outerRadius={80} label>
-                      <Cell fill="#1976d2" />
+                      <Cell fill="#c943f9" />
                       <Cell fill="#ff9800" />
                       <Cell fill="#4caf50" />
                       <Cell fill="#e91e63" />
@@ -324,7 +324,7 @@ export const DashboardScreen: React.FC = () => {
                     <XAxis dataKey="label" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="count" fill="#1976d2" />
+                    <Bar dataKey="count" fill="#c943f9" />
                   </BarChart>
                 </ResponsiveContainer>
           </UiCard>

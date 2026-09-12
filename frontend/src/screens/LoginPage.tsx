@@ -41,7 +41,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       {/* Left Panel */}
       <div style={{
         flex: 1,
-        background: 'linear-gradient(135deg, #1976d2 0%, #1976d2cc 100%)',
+        background: 'linear-gradient(135deg, #c943f9 0%, #c943f9cc 100%)',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
         padding: '60px 40px', color: '#fff',
       }}>
